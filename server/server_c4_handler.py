@@ -61,24 +61,13 @@ class C4ServerClass(Thread):
                 count = count + 1
 
                 if winner == "red":
-                    if self.first_p1 == "red":
-                        self.client_socket_1.send(bytes("Win", 'utf-8'))
-                        self.client_socket_2.send(bytes("Lose", 'utf-8'))
-                        break
-                    else:
-                        self.client_socket_2.send(bytes("Win", 'utf-8'))
-                        self.client_socket_1.send(bytes("Lose", 'utf-8'))
-                        break
+                    self.client_socket_1.send(bytes("Win", 'utf-8'))
+                    self.client_socket_2.send(bytes("Lose", 'utf-8'))
+                    break
                 elif winner == "yellow":
-                    if self.first_p1 == "yellow":
-                        print(self.first_p1)
-                        self.client_socket_2.send(bytes("Win", 'utf-8'))
-                        self.client_socket_1.send(bytes("Lose", 'utf-8'))
-                        break
-                    else:
-                        self.client_socket_1.send(bytes("Win", 'utf-8'))
-                        self.client_socket_2.send(bytes("Lose", 'utf-8'))
-                        break
+                    self.client_socket_1.send(bytes("Lose", 'utf-8'))
+                    self.client_socket_2.send(bytes("Win", 'utf-8'))
+                    break
                 elif winner == "draw":
                     self.client_socket_1.send(bytes("Draw", 'utf-8'))
                     self.client_socket_2.send(bytes("Draw", 'utf-8'))

@@ -71,7 +71,7 @@ def format_and_send(socket, command, message):
     server_comm.send_to_client(socket, msg)
 
 
-def wait_for_game(client_socket):
+def wait_for_game(new_client_socket):
     wait_list = server_comm.get_wait_list()
 
     if len(wait_list) > 0:
@@ -81,21 +81,21 @@ def wait_for_game(client_socket):
         # Randomizes first player
         first_p1 = str(random.randint(0, 1))
 
-        new_thread = server_c4_handler.C4ServerClass(first_user, client_socket, first_p1)
+        new_thread = server_c4_handler.C4ServerClass(first_user, new_client_socket, first_p1)
         new_thread.start()
 
         time.sleep(3)
 
-        if first_p1 == "1":
+        if first_p1 == "0":
             format_and_send(first_user, "startgame", "0")
-            format_and_send(client_socket, "startgame", "1")
+            format_and_send(new_client_socket, "startgame", "1")
         else:
             format_and_send(first_user, "startgame", "1")
-            format_and_send(client_socket, "startgame", "0")
+            format_and_send(new_client_socket, "startgame", "0")
 
         # Resets the list of currently waiting users
         server_comm.clear_wait_list()
 
     else:
-        wait_list.append(client_socket)
-        format_and_send(client_socket, "inQueue", "You have been added to the queue")
+        wait_list.append(new_client_socket)
+        format_and_send(new_client_socket, "inQueue", "You have been added to the queue")

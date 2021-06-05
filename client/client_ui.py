@@ -28,8 +28,6 @@ def signup():
         messagebox.showerror("Error", "All Fields Are Required", parent=signupWin)
     elif password != very_pass:
         messagebox.showerror("Error", "Password & Confirm Password Should Be Same", parent=signupWin)
-    elif re.search(regex, email) is None:
-        messagebox.showerror("Error", "Please type a valid email address", parent=signupWin)
     else:
         try:
             user_data = first_name + "##" + last_name + "##" + user_name + "##" + email + "##" + password
